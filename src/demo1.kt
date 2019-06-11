@@ -1,6 +1,8 @@
 fun main (args: Array<String>){
     val s : String? =readLine()
+    println("Answer:")
     println(calculateWordStat(s!!))
+
 }
 
 fun calculateWordStat(input:String): String{
