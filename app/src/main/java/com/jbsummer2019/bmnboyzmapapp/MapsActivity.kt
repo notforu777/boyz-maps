@@ -43,6 +43,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Piter, 10.0f))
 
+        mMap.setOnMarkerClickListener(this)
     }
 
 
