@@ -21,9 +21,16 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     val repository = MarkerRepository()
     init {
+        repository.add(MarkerEntity(LatLng(59.933270, 30.343388), "Аничков мост", "Аничков мост"))
+        repository.add(MarkerEntity(LatLng(59.932219, 30.324958), "Грифоны на Банковском мосту", "Грифоны на Банковском мосту"))
+        repository.add(MarkerEntity(LatLng(59.927701, 30.310945), "Дом Раскольникова", "Дом Раскольникова"))
+        repository.add(MarkerEntity(LatLng(59.924624, 30.303270), "Дом старухи-процентщицы", "Дом старухи-процентщицы"))
+        repository.add(MarkerEntity(LatLng(59.940021, 30.338057), "Михайловский замок", "Михайловский замок"))
+        repository.add(MarkerEntity(LatLng(59.940134, 30.328878), "Храм Спаса на Крови", "Храм Спаса на Крови"))
+        repository.add(MarkerEntity(LatLng(59.945767, 30.372960), "Таврический сад", "Таврический сад"))
         repository.add(MarkerEntity(LatLng(59.941688, 30.338012),"Чижик-пыжик", "основа" ))
-        repository.add(MarkerEntity(LatLng(65.941698, 30.338012),"ВЕРХ" , "ФИНКА"))
-        repository.add(MarkerEntity(LatLng(53.941678, 30.338012),"НИЗ" , "беларусь"))
+        repository.add(MarkerEntity(LatLng(59.939872, 30.314523), "Эрмитаж", "Эрмитаж" ))
+
     }
 
 
@@ -36,10 +43,10 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
-        val Piter = LatLng(59.941688, 30.338012)
-//        val a = mMap.addMarker(MarkerOptions().position(Piter).title("Чижик-пыжик"))
+        val piter = LatLng(59.941688, 30.338012)
+//        val a = mMap.addMarker(MarkerOptions().position(piter).title("Чижик-пыжик"))
         mMap.addAllMarkersEntites(repository.getAll())
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Piter, 18.0f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(piter, 14.0f))
         mMap.setOnMarkerClickListener(this)
     }
 
