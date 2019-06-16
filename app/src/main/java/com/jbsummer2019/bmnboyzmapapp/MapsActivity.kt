@@ -21,16 +21,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     val repository = MarkerRepository()
     init {
-        repository.add(MarkerEntity(LatLng(59.941688, 30.338012),"Чижик-пыжик" ))
-        repository.add(MarkerEntity(LatLng(59.941698, 30.338012),"Чижик-пыжик2" ))
-        repository.add(MarkerEntity(LatLng(59.941678, 30.338012),"Чижик-пыжик3" ))
+        repository.add(MarkerEntity(LatLng(59.941688, 30.338012),"Чижик-пыжик", "основа" ))
+        repository.add(MarkerEntity(LatLng(65.941698, 30.338012),"ВЕРХ" , "ФИНКА"))
+        repository.add(MarkerEntity(LatLng(53.941678, 30.338012),"НИЗ" , "беларусь"))
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
     }
@@ -40,9 +39,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val Piter = LatLng(59.941688, 30.338012)
 //        val a = mMap.addMarker(MarkerOptions().position(Piter).title("Чижик-пыжик"))
         mMap.addAllMarkersEntites(repository.getAll())
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Piter, 10.0f))
-
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(Piter, 18.0f))
         mMap.setOnMarkerClickListener(this)
     }
 
@@ -53,10 +50,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
             val intent = Intent(this, MarkerActivity::class.java)
             intent.putExtra("position", it.position.toString())
             intent.putExtra("title", it.title)
-
+            intent.putExtra("text", it.text)
             startActivity(intent)
         }
-
         return true
     }
 }
