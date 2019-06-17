@@ -1,5 +1,6 @@
 package com.jbsummer2019.bmnboyzmapapp
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -13,6 +14,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerRepository
 import com.google.android.gms.maps.model.Marker
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
+import kotlinx.android.synthetic.main.activity_marker.*
 
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -39,6 +41,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         setContentView(R.layout.activity_maps)
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+
+        button.setOnClickListener {
+            val intent = Intent(this, menu::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -46,7 +54,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         val piter = LatLng(59.941688, 30.338012)
 //        val a = mMap.addMarker(MarkerOptions().position(piter).title("Чижик-пыжик"))
         mMap.addAllMarkersEntites(repository.getAll())
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(piter, 14.0f))
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(piter, 13.0f))
         mMap.setOnMarkerClickListener(this)
     }
 
