@@ -15,7 +15,7 @@ class MarkerActivity : AppCompatActivity() {
         text.text=intent.getStringExtra("text")
 
 
-        button.setOnClickListener {
+        button_back.setOnClickListener {
             val intent= Intent(this,MapsActivity::class.java)
             startActivity(intent)
         }
