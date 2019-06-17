@@ -1,7 +1,8 @@
 package com.jbsummer2019.bmnboyzmapapp
 
-import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -9,6 +10,7 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerRepository
@@ -23,15 +25,15 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
     val repository = MarkerRepository()
     init {
-        repository.add(MarkerEntity(LatLng(59.933270, 30.343388), "Аничков мост", "Аничков мост", R.drawable.chiz))
-        repository.add(MarkerEntity(LatLng(59.932219, 30.324958), "Грифоны на Банковском мосту", "Грифоны на Банковском мосту", R.drawable.chiz))
-        repository.add(MarkerEntity(LatLng(59.927701, 30.310945), "Дом Раскольникова", "Дом Раскольникова", R.drawable.chiz))
-        repository.add(MarkerEntity(LatLng(59.924624, 30.303270), "Дом старухи-процентщицы", "Дом старухи-процентщицы", R.drawable.chiz))
-        repository.add(MarkerEntity(LatLng(59.940021, 30.338057), "Михайловский замок", "Михайловский замок", R.drawable.chiz))
-        repository.add(MarkerEntity(LatLng(59.940134, 30.328878), "Храм Спаса на Крови", "Храм Спаса на Крови", R.drawable.chiz))
-        repository.add(MarkerEntity(LatLng(59.945767, 30.372960), "Таврический сад", "Таврический сад", R.drawable.chiz))
-        repository.add(MarkerEntity(LatLng(59.941688, 30.338012),"Чижик-пыжик", "основа", R.drawable.chiz))
-        repository.add(MarkerEntity(LatLng(59.939872, 30.314523), "Эрмитаж", "Эрмитаж", R.drawable.chiz))
+        repository.add(MarkerEntity(LatLng(59.933270, 30.343388), "Аничков мост", "Аничков мост", R.drawable.anichkov,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.932219, 30.324958), "Грифоны на Банковском мосту", "Грифоны на Банковском мосту", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.927701, 30.310945), "Дом Раскольникова", "Дом Раскольникова", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.924624, 30.303270), "Дом старухи-процентщицы", "Дом старухи-процентщицы", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.940021, 30.338057), "Михайловский замок", "Михайловский замок", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.940134, 30.328878), "Храм Спаса на Крови", "Храм Спаса на Крови", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.945767, 30.372960), "Таврический сад", "Таврический сад", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.941688, 30.338012),"Чижик-пыжик", "основа", R.drawable.chiz,R.drawable.icon_chiz))
+        repository.add(MarkerEntity(LatLng(59.939872, 30.314523), "Эрмитаж", "Эрмитаж", R.drawable.chiz,R.drawable.icon_anichkov))
 
     }
 
@@ -75,6 +77,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
 
 fun GoogleMap.addAllMarkersEntites(list : ArrayList<MarkerEntity>){
     list.forEach {
-        this.addMarker(MarkerOptions().position(it.position).title(it.title))
+        this.addMarker(MarkerOptions().position(it.position).title(it.title).icon(BitmapDescriptorFactory.fromResource(it.iconimageId)))
+
     }
 }
