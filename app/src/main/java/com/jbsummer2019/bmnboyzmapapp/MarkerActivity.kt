@@ -28,12 +28,18 @@ class MarkerActivity : AppCompatActivity() {
         text.text=intent.getStringExtra("text")
 
 
+
+        button.setOnClickListener {
+            val intent= Intent(this,MapsActivity::class.java)
+            startActivity(intent)
+}
 //        val imageName = intent.getIntExtra("IMAGE_KEY")
 //        val imageId = resources.getIdentifier("res/drawable/chiz", null, packageName)
         val imageId = intent.getIntExtra(IMAGE_KEY, 0)
         if(imageId != 0) {
             val drawable = resources.getDrawable(imageId)
             marker_picture.setImageDrawable(drawable)
-        }
+
+        
     }
 }
