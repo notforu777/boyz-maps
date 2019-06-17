@@ -9,20 +9,37 @@
         android:orientation="vertical">
 
 
-    <TextView android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/name"
+            android:text="Название места"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="8dp"
+            android:textSize="33sp"
+            android:textColor="#00665F"
+    />
+    <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/text"
+            android:layout_below="@id/name"
+            android:text="Описание места"
+            android:layout_marginStart="10dp"
+            android:textSize="17sp"
+            android:layout_marginTop="3dp"
+            android:textColor="#1D766F"
+    />
 
-                android:id="@+id/name"
-    />
-    <TextView android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/text"
-              android:layout_below="@id/name"
-    />
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="Back"
-            android:id="@+id/button"
+            android:text="Назад"
+            android:id="@+id/button_back"
+            android:background="#66A3D2"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:textColorHighlight="#3F92D2"
     />
   <ImageView
             android:layout_width="wrap_content"
