@@ -15,6 +15,10 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/AppTheme">
+        <activity android:name=".routes">
+        </activity>
+        <activity android:name=".menu">
+        </activity>
         <activity android:name=".MarkerActivity">
         </activity>
         <!--
