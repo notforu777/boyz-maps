@@ -27,14 +27,14 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
     val repository = MarkerRepository()
     init {
         repository.add(MarkerEntity(LatLng(59.933270, 30.343388), "Аничков мост", "Аничков мост", R.drawable.anichkov,R.drawable.icon_anichkov))
-        repository.add(MarkerEntity(LatLng(59.932219, 30.324958), "Грифоны на Банковском мосту", "Грифоны на Банковском мосту", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.932219, 30.324958), "Грифоны на Банковском мосту", "https://www.fiesta.city/spb/live/krylatye-lvy-bankovskogo-mosta-istoriya-primety-i-klady/", R.drawable.grifons,R.drawable.icon_grifons))
         repository.add(MarkerEntity(LatLng(59.927701, 30.310945), "Дом Раскольникова", "Дом Раскольникова", R.drawable.chiz,R.drawable.icon_anichkov))
         repository.add(MarkerEntity(LatLng(59.924624, 30.303270), "Дом старухи-процентщицы", "Дом старухи-процентщицы", R.drawable.chiz,R.drawable.icon_anichkov))
-        repository.add(MarkerEntity(LatLng(59.940021, 30.338057), "Михайловский замок", "Михайловский замок", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.940021, 30.338057), "Михайловский замок", "Михайловский замок", R.drawable.misha_castle,R.drawable.icon_misha_castle))
         repository.add(MarkerEntity(LatLng(59.940134, 30.328878), "Храм Спаса на Крови", "Храм Спаса на Крови", R.drawable.chiz,R.drawable.icon_anichkov))
         repository.add(MarkerEntity(LatLng(59.945767, 30.372960), "Таврический сад", "Таврический сад", R.drawable.chiz,R.drawable.icon_anichkov))
         repository.add(MarkerEntity(LatLng(59.941688, 30.338012), "Чижик-пыжик", "основа", R.drawable.chiz,R.drawable.icon_chiz))
-        repository.add(MarkerEntity(LatLng(59.939872, 30.314523), "Эрмитаж", "Эрмитаж", R.drawable.chiz,R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.939872, 30.314523), "Эрмитаж", "Эрмитаж", R.drawable.hermitage,R.drawable.icon_hermitage))
 
     }
 
@@ -81,4 +81,6 @@ fun GoogleMap.addAllMarkersEntites(list : ArrayList<MarkerEntity>){
         this.addMarker(MarkerOptions().position(it.position).title(it.title).icon(BitmapDescriptorFactory.fromResource(it.iconimageId)))
 
     }
+
+
 }
