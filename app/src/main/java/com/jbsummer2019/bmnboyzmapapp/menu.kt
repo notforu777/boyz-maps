@@ -19,7 +19,7 @@ class menu : AppCompatActivity() {
             startActivity(intent)
         }
         button.setOnClickListener {
-            val intent= Intent(this,MapsActivity::class.java)
+            val intent = Intent(this,MapsActivity::class.java)
             startActivity(intent)
         }
     }
