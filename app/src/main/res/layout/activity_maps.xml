@@ -20,5 +20,9 @@
             android:layout_alignParentRight="true"
             android:id="@+id/button_menu"
             android:text="menu"
+            android:background="#5DCEC6"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="10dp"
+            android:textColor="#1D766F"
     />
 </RelativeLayout>
