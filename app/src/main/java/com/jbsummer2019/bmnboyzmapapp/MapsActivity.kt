@@ -32,7 +32,7 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
         repository.add(MarkerEntity(LatLng(59.933270, 30.343388), "Аничков мост", "Нет, он назван не в честь Анечки.", R.drawable.anichkov, R.drawable.icon_anichkov,false))
         repository.add(MarkerEntity(LatLng(59.932219, 30.324958), "Грифоны", "На реставрации в 99 случаях из 100, так что если тебе удалось их встретить, ты просто лакер.", R.drawable.grifons,R.drawable.icon_grifons,false))
         repository.add(MarkerEntity(LatLng(59.927701, 30.310945), "Дом Раскольникова", "Да, считается, что жил он, по замыслу автора, именно здесь.", R.drawable.chiz, R.drawable.icon_anichkov,false))
-        repository.add(MarkerEntity(LatLng(59.924624, 30.303270), "Дом старухи-процентщицы", "У-у-у, мрачное местечко.", R.drawable.chiz, R.drawable.icon_anichkov))
+        repository.add(MarkerEntity(LatLng(59.924624, 30.303270), "Дом старухи-процентщицы", "У-у-у, мрачное местечко.", R.drawable.chiz, R.drawable.icon_anichkov,false))
         repository.add(MarkerEntity(LatLng(59.952057, 30.308922), "Зоопарк", "Один из са-а-амых ма-а-а-аленьких зоопарков в Европе.", R.drawable.chiz, R.drawable.icon_anichkov,false))
         repository.add(MarkerEntity(LatLng(59.934027, 30.306340), "Исаакиевский собор", "Это одно из самых высоких зданий центра, так что забраться на колокольню точно стоит, потому что оттуда можно сделать шикарную панораму.", R.drawable.chiz, R.drawable.icon_anichkov,false))
         repository.add(MarkerEntity(LatLng(59.944959, 30.335574), "Летний сад","Пруды с лебедями (или это просто утки?), похожие на лабиринт переплетения дорожек и, конечно же, памятник Крылову И. А. (это тот, который много-много басен написал).", R.drawable.chiz,R.drawable.icon_anichkov,false ))
