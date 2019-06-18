@@ -14,6 +14,7 @@ import android.util.Log
 import java.io.File
 
 
+
 class MarkerActivity : AppCompatActivity() {
     companion object {
         val IMAGE_KEY = "IMAGE_KEY"
@@ -32,14 +33,29 @@ class MarkerActivity : AppCompatActivity() {
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
-//        val imageName = intent.getIntExtra("IMAGE_KEY")
-//        val imageId = resources.getIdentifier("res/drawable/chiz", null, packageName)
+
         val imageId = intent.getIntExtra(IMAGE_KEY, 0)
         if (imageId != 0) {
             val drawable = resources.getDrawable(imageId)
             marker_picture.setImageDrawable(drawable)
+        }
 
-
+        button_like.setOnClickListener {
+            if (intent.getBooleanExtra("like", false)) {
+                SelectedArr.remove(intent.getStringExtra("title"))
+                val currentMarkers = repository.searchByTitle(intent.getStringExtra("title"))
+                currentMarkers.forEach {
+                    it.like=false
+                }
+                
+            }
+            else{
+                SelectedArr.add(intent.getStringExtra("title"))
+                val currentMarkers = repository.searchByTitle(intent.getStringExtra("title"))
+                currentMarkers.forEach {
+                    it.like=true
+                }
+            }
         }
     }
 }
