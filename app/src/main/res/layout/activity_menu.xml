@@ -8,23 +8,28 @@
         tools:context=".menu"
 >
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="Choose your route"
+            android:text="Выбери свой путь"
             android:id="@+id/button_route"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
     />
 
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:text="settings"
+            android:text="Настройки"
             android:id="@+id/button_settings"
             android:layout_below="@id/button_route"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
     />
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:text="Back"
-            android:id="@+id/button"
+            android:text="Назад"
+            android:id="@+id/button_back_from_menu"
+            android:background="#66A3D2"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:textColorHighlight="#3F92D2"
     />
 
 </RelativeLayout>

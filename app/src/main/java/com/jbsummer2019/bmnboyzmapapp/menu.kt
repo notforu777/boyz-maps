@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_marker.*
 import kotlinx.android.synthetic.main.activity_menu.*
-import kotlinx.android.synthetic.main.activity_menu.button
+import kotlinx.android.synthetic.main.activity_menu.button_back_from_menu
 
 class menu : AppCompatActivity() {
 
@@ -18,8 +18,8 @@ class menu : AppCompatActivity() {
             val intent=Intent(this,routes::class.java)
             startActivity(intent)
         }
-        button.setOnClickListener {
-            val intent= Intent(this,MapsActivity::class.java)
+        button_back_from_menu.setOnClickListener {
+            val intent = Intent(this,MapsActivity::class.java)
             startActivity(intent)
         }
     }
