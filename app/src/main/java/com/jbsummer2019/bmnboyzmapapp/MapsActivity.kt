@@ -3,6 +3,7 @@ package com.jbsummer2019.bmnboyzmapapp
 import android.content.Context
 import android.content.Intent
 import android.graphics.BitmapFactory
+import android.location.GnssNavigationMessage
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -10,14 +11,14 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.gms.maps.model.*
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerRepository
-import com.google.android.gms.maps.model.Marker
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
 import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.android.synthetic.main.activity_marker.*
+import retrofit.Callback
+import retrofit.http.GET
+import retrofit.http.Query
 
 
 class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
@@ -55,7 +56,6 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
     override fun onMapReady(googleMap:  GoogleMap) {
         mMap = googleMap
         val piter = LatLng(59.941688, 30.338012)
-//        val a = mMap.addMarker(MarkerOptions().position(piter).title("Чижик-пыжик"))
         mMap.addAllMarkersEntites(repository.getAll())
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(piter, 13.0f))
         mMap.setOnMarkerClickListener(this)
@@ -67,7 +67,7 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
         results.forEach {
             val intent = Intent(this, MarkerActivity::class.java)
             intent.putExtra("position", it.position.toString())
-            intent.putExtra("title", it.title)
+                        intent.putExtra("title", it.title)
             intent.putExtra("text", it.text)
             intent.putExtra(MarkerActivity.IMAGE_KEY, it.imageId)
             startActivity(intent)
@@ -81,4 +81,14 @@ fun GoogleMap.addAllMarkersEntites(list : ArrayList<MarkerEntity>){
         this.addMarker(MarkerOptions().position(it.position).title(it.title).icon(BitmapDescriptorFactory.fromResource(it.iconimageId)))
 
     }
+}
+
+interface RouteApi {
+    @GET("/maps/api/directions/json")
+    fun getRoute(
+        @Query(value = "origin", encodeValue = false) position: String,
+        @Query(value = "destination", encodeValue = false) destination: String,
+        @Query("sensor") sensor: Boolean,
+        @Query("language") language: String
+    )
 }
