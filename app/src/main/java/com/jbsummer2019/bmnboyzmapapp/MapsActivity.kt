@@ -44,7 +44,7 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
         repository.add(MarkerEntity(LatLng(59.945767, 30.372960), "Таврический сад", "Я к Таврическому саду, перепрыгнул через ограду...", R.drawable.chiz, R.drawable.icon_anichkov))
         repository.add(MarkerEntity(LatLng(59.941688, 30.338012),"Чижик-пыжик", "Осторожно, можно не рассчитать и нечаянно потратить все деньги, пытаясь попасть в него монеткой.", R.drawable.chiz, R.drawable.icon_chiz))
         repository.add(MarkerEntity(LatLng(59.932253, 30.251321), "Эрарта", "Просто огромная (аж 5 этажей) коллекция картин, скульптур, инсталляций и чего-только-ещё-там-нет современного искусства.", R.drawable.chiz, R.drawable.icon_anichkov))
-        repository.add(MarkerEntity(LatLng(59.939872, 30.314523), "Эрмитаж", "Если тебе захочется обойти все его залы, останавливаясь у каждого экспоната, придется выделить примерно 11 лет своего времени (можно, например, не ходить в школу).",  R.drawable.hermitage, R.drawable.icon_hermitage)
+        repository.add(MarkerEntity(LatLng(59.939872, 30.314523), "Эрмитаж", "Если тебе захочется обойти все его залы, останавливаясь у каждого экспоната, придется выделить примерно 11 лет своего времени (можно, например, не ходить в школу).",  R.drawable.hermitage, R.drawable.icon_hermitage))
 
     }
 
