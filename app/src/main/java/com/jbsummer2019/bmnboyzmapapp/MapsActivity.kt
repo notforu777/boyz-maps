@@ -45,7 +45,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
 
-      
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
