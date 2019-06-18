@@ -16,12 +16,13 @@ import com.google.android.gms.maps.model.MarkerOptions
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerRepository
 import com.google.android.gms.maps.model.Marker
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
+import kotlinx.android.synthetic.main.activity_maps.*
 import kotlinx.android.synthetic.main.activity_marker.*
 
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
-    private lateinit var mMap: GoogleMap
+    private lateinit var mMap:  GoogleMap
 
     val repository = MarkerRepository()
     init {
@@ -46,14 +47,18 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     }
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+    override fun onCreate(savedInstanceState:  Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_maps)
-        val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
+        val mapFragment =  supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+        button_menu.setOnClickListener {
+            val intent =  Intent(this, menu::class.java)
+            startActivity(intent)
+        }
     }
 
-    override fun onMapReady(googleMap: GoogleMap) {
+    override fun onMapReady(googleMap:  GoogleMap) {
         mMap = googleMap
         val piter = LatLng(59.941688, 30.338012)
 //        val a = mMap.addMarker(MarkerOptions().position(piter).title("Чижик-пыжик"))
