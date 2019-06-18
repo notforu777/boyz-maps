@@ -45,10 +45,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
         mapFragment.getMapAsync(this)
 
 
-        button.setOnClickListener {
-            val intent = Intent(this, menu::class.java)
-            startActivity(intent)
-        }
+      
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
