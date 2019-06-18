@@ -48,6 +48,18 @@
             android:layout_below="@id/text"
             android:contentDescription="Cool image"/>
 
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="В избранное"
+            android:id="@+id/button_like"
+            android:background="#66A3D2"
+            android:layout_marginBottom="10dp"
+            android:layout_marginStart="10dp"
+            android:textColorHighlight="#3F92D2"
+    />
+
 </RelativeLayout>
 
 
