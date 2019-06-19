@@ -31,16 +31,15 @@
             android:textColor="#1D766F"
     />
 
-    <WebView
-            android:id="@+id/webView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/text"
-            android:textSize="33sp"
-            android:layout_marginTop="3dp"
-            android:layout_marginStart="10dp"
-            android:text = "e"
-            android:layout_weight="1.0" />
+   <Button android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="Читать подробнее"
+           android:id="@+id/web"
+           android:layout_below="@id/text"
+           android:padding="5dp"
+           android:elevation="2dp"
+           android:textColor="#05021D"
+   />
 
 
     <Button android:layout_width="wrap_content"
