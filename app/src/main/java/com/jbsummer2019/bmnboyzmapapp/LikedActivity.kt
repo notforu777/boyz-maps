@@ -20,7 +20,6 @@ class LikedActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_selected)
 
-
         val testData = DBHandler(this).listPlacesByLike("true").toStringList()
         testData.forEach {
             Log.d("COOL_DEBUG", "${it} is  in liked")
@@ -34,7 +33,6 @@ class LikedActivity : AppCompatActivity() {
             startActivity(intent)
         }
         Log.d("debug", "onCreate")
-
 
         list_view.setOnItemClickListener{
             parent, view, position, id ->
@@ -51,7 +49,6 @@ class LikedActivity : AppCompatActivity() {
                 intent.putExtra(MarkerActivity.IMAGE_KEY, it.imageId)
                 startActivity(intent)
             }
-
         }
     }
 }

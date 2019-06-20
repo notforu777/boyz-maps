@@ -3,12 +3,9 @@ package com.jbsummer2019.bmnboyzmapapp
 import android.content.ContentValues
 import android.content.Intent
 import android.database.DatabaseUtils
-
-
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
-
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
@@ -21,13 +18,9 @@ import com.google.android.gms.maps.model.Marker
 import com.jbsummer2019.bmnboyzmapapp.entity.DBHandler
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
 import kotlinx.android.synthetic.main.activity_maps.*
-
 import android.content.res.Resources.NotFoundException
-
 import com.google.android.gms.maps.model.MapStyleOptions
-
 import android.content.SharedPreferences
-
 
 val repository = MarkerRepository()
 
@@ -40,9 +33,6 @@ lateinit var pref: SharedPreferences  //для работы с настройк�
 class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
     private lateinit var mMap:  GoogleMap
-
-
-
 
     init {
         if (repository.getAll().size == 0)
@@ -65,14 +55,8 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
             repository.add(MarkerEntity(16, 59.941688, 30.338012, "Чижик-пыжик", "Осторожно, можно не рассчитать и нечаянно потратить все деньги, пытаясь попасть в него монеткой.", R.drawable.chiz, R.drawable.icon_chiz,false,"https://ru.wikipedia.org/wiki/Александровская_колонна"))
             repository.add(MarkerEntity(17, 59.932253, 30.251321, "Эрарта", "Просто огромная (аж 5 этажей) коллекция картин, скульптур, инсталляций и чего-только-ещё-там-нет современного искусства.", R.drawable.chiz, R.drawable.icon_anichkov,false,"https://ru.wikipedia.org/wiki/Александровская_колонна"))
             repository.add(MarkerEntity(18, 59.939872, 30.314523, "Эрмитаж", "Если тебе захочется обойти все его залы, останавливаясь у каждого экспоната, придется выделить примерно 11 лет своего времени (можно, например, не ходить в школу).",  R.drawable.hermitage, R.drawable.icon_hermitage,false,"https://ru.wikipedia.org/wiki/Александровская_колонна"))
-
-      
         }
     }
-  
-
-
-
 
     override fun onCreate(savedInstanceState:  Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,11 +69,6 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
                 addPlace2(it, localDB)
                 }
             }
-
-//        localDB.listPlacesByLike("%").forEach {
-    //        Log.d("COOL_DEBUG", "${it.title} - ${it.like}")
-    //    }
-
 
         pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)       //cчитываем сохраненные данные
 
@@ -361,19 +340,12 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
             }
         }
 
-
-
-
-
-
-
         val piter = LatLng(59.941688, 30.338012)
         mMap.addAllMarkersEntites(repository.getAll())
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(piter, 13.0f))
         mMap.setOnMarkerClickListener(this)
 
     }
-
 
     override fun onMarkerClick(currentMarker: Marker?): Boolean {
         val results = repository.searchByTitle(currentMarker!!.title)
@@ -390,7 +362,6 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
 
         return true
     }
-
 
 }
 
@@ -418,5 +389,3 @@ fun addPlace2(marker: MarkerEntity, local: DBHandler){
     values.put(DBHandler.placeGiper_text, marker.giper_text)
     local.addPlace(values)
 }
-
-

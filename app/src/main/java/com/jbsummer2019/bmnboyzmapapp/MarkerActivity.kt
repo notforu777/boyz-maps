@@ -19,9 +19,6 @@ import android.text.method.LinkMovementMethod
 import kotlinx.android.synthetic.main.activity_marker.view.*
 import java.io.File
 
-
-
-
 class MarkerActivity : AppCompatActivity() {
     companion object {
         val IMAGE_KEY = "IMAGE_KEY"
@@ -46,7 +43,6 @@ class MarkerActivity : AppCompatActivity() {
                 Log.d("Intent", "Не получается обработать намерение!")
             }
         }
-
 
         button_back.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
@@ -77,13 +73,6 @@ class MarkerActivity : AppCompatActivity() {
                     values.put(DBHandler.placeGiper_text, it.giper_text)
 
                     localDB.updatePlace(values, it.id)
-
-                 //   localDB.listPlacesByLike("%").forEach {
-                 //       Log.d("COOL_DEBUG", it.title + it.like.toString())
-                 //   }
-
-
-
             }
         }
     }

@@ -13,11 +13,11 @@ class menu : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_menu)
 
-
         button_route.setOnClickListener {
             val intent=Intent(this,routes::class.java)
             startActivity(intent)
         }
+
         button_back_from_menu.setOnClickListener {
             val intent = Intent(this,MapsActivity::class.java)
             startActivity(intent)
