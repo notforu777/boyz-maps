@@ -5,15 +5,39 @@
         xmlns:app="http://schemas.android.com/apk/res-auto"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         tools:context=".LikedActivity">
 
-    <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-    android:text="назад"
-    android:id="@+id/button"
+        android:background="#E6E6FA"
+
+
+    <Button android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Назад"
+            android:id="@+id/button_back_from_favourites"
             android:layout_alignParentBottom="true"
+            android:background="#66A3D2"
+            android:layout_margin="10dp"
+            android:padding="6dp"
+            android:elevation="2dp"
+            android:textColor="#05021D"
     />
-    <ListView android:layout_width="wrap_content" android:layout_height="wrap_content"
+
+    <TextView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:text="Избранное"
+              android:layout_alignParentTop="true"
+              android:id="@+id/favourites_title"
+              android:textSize="33sp"
+              android:textColor="#00665F"
+              android:layout_margin="10dp"
+              android:padding="6dp"
+    />
+
+    <ListView android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
               android:id="@+id/list_view"
+              android:layout_below="@+id/favourites_title"
     ></ListView>
 
 </RelativeLayout>

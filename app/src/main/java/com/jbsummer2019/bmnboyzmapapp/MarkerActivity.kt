@@ -5,8 +5,20 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_marker.*
 import android.content.Intent
+
 import android.util.Log
 import com.jbsummer2019.bmnboyzmapapp.entity.DBHandler
+
+import android.os.Environment
+import android.provider.MediaStore
+import android.os.Environment.getExternalStorageDirectory
+import android.text.Html
+import android.text.method.LinkMovementMethod
+import android.util.Log
+import kotlinx.android.synthetic.main.activity_marker.view.*
+import java.io.File
+
+
 
 
 class MarkerActivity : AppCompatActivity() {
@@ -22,6 +34,17 @@ class MarkerActivity : AppCompatActivity() {
 
         name.text = intent.getStringExtra("title")
         text.text = intent.getStringExtra("text")
+
+        web.setOnClickListener {
+            val address = Uri.parse(intent.getStringExtra("giper_text"))
+            val openLinkIntent = Intent(Intent.ACTION_VIEW, address)
+
+            if (openLinkIntent.resolveActivity(packageManager) != null) {
+                startActivity(openLinkIntent)
+            } else {
+                Log.d("Intent", "Не получается обработать намерение!")
+            }
+        }
 
 
         button_back.setOnClickListener {

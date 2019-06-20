@@ -6,6 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".menu"
+        android:background="#E6E6FA"
 >
     <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
             android:text="Выбрать свой путь"
@@ -20,8 +21,8 @@
 
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Настройки"
-            android:id="@+id/button_settings"
+            android:text="Стиль карты"
+            android:id="@+id/button_style"
             android:layout_below="@id/button_route"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
