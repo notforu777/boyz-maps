@@ -93,7 +93,7 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
 
         pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)       //cчитываем сохраненные данные
 
-        counter = pref.getString(APP_PREFERENCES_COUNTER, "standart");
+        counter = pref.getString(APP_PREFERENCES_COUNTER, "standart")
 
         setContentView(R.layout.activity_maps)
         val mapFragment =  supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
