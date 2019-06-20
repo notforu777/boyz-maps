@@ -47,11 +47,10 @@ class MarkerActivity : AppCompatActivity() {
         }
 
         button_like.setOnClickListener {
-            if (intent.getBooleanExtra("like", false)) {
-                SelectedArr.remove(intent.getStringExtra("title"))
                 val currentMarkers = repository.searchByTitle(intent.getStringExtra("title"))
+            Log.d("debug", "${currentMarkers.size}")
                 currentMarkers.forEach {
-                    it.like=false
+                    it.like=!it.like
 
                     var values = ContentValues()
                     values.put(DBHandler.placePosition1, it.position1)
@@ -64,28 +63,22 @@ class MarkerActivity : AppCompatActivity() {
                     values.put(DBHandler.placeImageID, it.imageId)
 
                     localDB.updatePlace(values, it.id)
-                }
-                
-            }
-            else{
-                SelectedArr.add(intent.getStringExtra("title"))
-                val currentMarkers = repository.searchByTitle(intent.getStringExtra("title"))
-                currentMarkers.forEach {
-                    it.like=true
 
+                    if (it.like){
+                        if(!SelectedArr.contains(it.title)) {
+                            SelectedArr.add(it.title)
+                            Log.d("debug", "marker")
+                        }
+                    }
+                    else{
+                        if (SelectedArr.remove(it.title)){
+                            Log.d("debug", "OK")
+                        }
+                        else{
+                            Log.d("debug", "BAD")
+                        }
+                    }
 
-                    var values = ContentValues()
-                    values.put(DBHandler.placePosition1, it.position1)
-                    values.put(DBHandler.placePosition2, it.position2)
-                    values.put(DBHandler._id, it.id)
-                    values.put(DBHandler.placeTitle, it.title)
-                    values.put(DBHandler.placeText, it.text)
-                    values.put(DBHandler.placeLike, it.like)
-                    values.put(DBHandler.placeIconImageID, it.iconimageId)
-                    values.put(DBHandler.placeImageID, it.imageId)
-
-                    localDB.updatePlace(values, it.id)
-                }
             }
         }
     }

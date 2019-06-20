@@ -3,12 +3,13 @@ package com.jbsummer2019.bmnboyzmapapp
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.ArrayAdapter
 import kotlinx.android.synthetic.main.activity_routes.*
 
 var SelectedArr : MutableList<String> = mutableListOf()
 
-public class selected : AppCompatActivity() {
+class selected : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,5 +22,6 @@ public class selected : AppCompatActivity() {
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }
+        Log.d("debug", "onCreate")
     }
 }

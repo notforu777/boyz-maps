@@ -24,8 +24,8 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
     var sqlObj: SQLiteDatabase = this.writableDatabase
 
     override fun onCreate(p0: SQLiteDatabase?) {
-        var sql1: String = "CREATE TABLE IF NOT EXISTS $tableName ( $_id INTEGER PRIMARY KEY, $placePosition1 DOUBLE, $placePosition2 DOUBLE, $placeTitle TEXT, $placeText TEXT, $placeImageID INTEGER, $placeIconImageID INTEGER, $placeLike BOOL);"
-        p0!!.execSQL(sql1);
+        var sql1 = "CREATE TABLE IF NOT EXISTS $tableName ( $_id INTEGER PRIMARY KEY, $placePosition1 DOUBLE, $placePosition2 DOUBLE, $placeTitle TEXT, $placeText TEXT, $placeImageID INTEGER, $placeIconImageID INTEGER, $placeLike BOOL);"
+        p0!!.execSQL(sql1)
     }
 
     override fun onUpgrade(p0: SQLiteDatabase?, p1: Int, p2: Int) {
@@ -35,6 +35,38 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
 
     fun addPlace(values: ContentValues) = sqlObj.insert(tableName, "", values)
 
-    fun updatePlace(values: ContentValues, id: Int) = sqlObj.update(tableName, values, "id=?", arrayOf(id.toString()))
+    fun updatePlace(values: ContentValues, id: Int) = sqlObj.update(tableName, values, "id = ?", arrayOf(id.toString()))
+
+//    fun listPlaces(key : String) : ArrayList<MarkerEntity> {
+//        var arraylist = ArrayList<MarkerEntity>()
+//        var sqlQB = SQLiteQueryBuilder()
+//        sqlQB.tables = tableName
+//        var cols = arrayOf(_id, placePosition1, placePosition2, placeTitle, placeText, placeImageID, placeIconImageID, placeLike)
+//        var selectArgs = arrayOf(key)
+//        var cursor = sqlQB.query(sqlObj, cols,"$placePosition1 like ?", selectArgs,null,null, placePosition1)
+//
+//        if (cursor.moveToFirst()) {
+//            do {
+//                val id = cursor.getInt(cursor.getColumnIndex(_id))
+//                val pp1 = cursor.getDouble(cursor.getColumnIndex(placePosition1))
+//                val pp2 = cursor.getDouble(cursor.getColumnIndex(placePosition2))
+//                val pT = cursor.getString(cursor.getColumnIndex(placeTitle))
+//                val pTe = cursor.getString(cursor.getColumnIndex(placeText))
+//                val pI = cursor.getInt(cursor.getColumnIndex(placeImageID))
+//                val pII = cursor.getInt(cursor.getColumnIndex(placeIconImageID))
+//                val pL = true
+//
+//                arraylist.add(MarkerEntity(id, pp1, pp2,pT,pTe,pI,pII,pL))
+//
+//            } while (cursor.moveToNext())
+//        }
+//        return arraylist
+//    }
+//
+//    fun getSize() : Int {
+//        sqlObj.execSQL("SELECT *")
+//        return 0
+//
+//    }
 
 }
