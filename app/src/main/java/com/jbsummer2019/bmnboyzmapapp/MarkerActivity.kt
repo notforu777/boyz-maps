@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.activity_marker.*
 import android.content.Intent
+import android.net.Uri
 
 import android.util.Log
 import com.jbsummer2019.bmnboyzmapapp.entity.DBHandler
@@ -14,7 +15,7 @@ import android.provider.MediaStore
 import android.os.Environment.getExternalStorageDirectory
 import android.text.Html
 import android.text.method.LinkMovementMethod
-import android.util.Log
+
 import kotlinx.android.synthetic.main.activity_marker.view.*
 import java.io.File
 
@@ -60,9 +61,9 @@ class MarkerActivity : AppCompatActivity() {
 
         button_like.setOnClickListener {
             val currentMarkers = localDB.listPlacesByTitle(intent.getStringExtra("title"))
-            Log.d("debug", "${currentMarkers.size}")
+           // Log.d("debug", "${currentMarkers.size}")
                 currentMarkers.forEach {
-                    Log.d("COOL_DEBUG", "${it.title} like clicked")
+              //      Log.d("COOL_DEBUG", "${it.title} like clicked")
 
                     var values = ContentValues()
                     values.put(DBHandler.placePosition1, it.position1)
@@ -73,12 +74,13 @@ class MarkerActivity : AppCompatActivity() {
                     values.put(DBHandler.placeLike, (!it.like).toString())
                     values.put(DBHandler.placeIconImageID, it.iconimageId)
                     values.put(DBHandler.placeImageID, it.imageId)
+                    values.put(DBHandler.placeGiper_text, it.giper_text)
 
                     localDB.updatePlace(values, it.id)
 
-                    localDB.listPlacesByLike("%").forEach {
-                        Log.d("COOL_DEBUG", it.title + it.like.toString())
-                    }
+                 //   localDB.listPlacesByLike("%").forEach {
+                 //       Log.d("COOL_DEBUG", it.title + it.like.toString())
+                 //   }
 
 
 

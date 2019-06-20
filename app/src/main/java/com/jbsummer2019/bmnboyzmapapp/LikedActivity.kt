@@ -8,8 +8,8 @@ import android.widget.ArrayAdapter
 import com.jbsummer2019.bmnboyzmapapp.entity.DBHandler
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
 import kotlinx.android.synthetic.main.activity_routes.*
-
-var SelectedArr : MutableList<String> = mutableListOf()
+import kotlinx.android.synthetic.main.activity_routes.list_view
+import kotlinx.android.synthetic.main.activity_selected.*
 
 class LikedActivity : AppCompatActivity() {
 
@@ -26,7 +26,7 @@ class LikedActivity : AppCompatActivity() {
         val adapter = ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, testData)
         list_view.adapter=adapter
 
-        button.setOnClickListener {
+        button_back_from_favourites.setOnClickListener {
             val intent = Intent(this, MapsActivity::class.java)
             startActivity(intent)
         }

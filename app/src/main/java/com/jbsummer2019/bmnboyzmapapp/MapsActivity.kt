@@ -23,7 +23,7 @@ import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
 import kotlinx.android.synthetic.main.activity_maps.*
 
 import android.content.res.Resources.NotFoundException
-import android.util.Log
+
 import com.google.android.gms.maps.model.MapStyleOptions
 
 import android.content.SharedPreferences
@@ -35,7 +35,7 @@ val APP_PREFERENCES = "mysettings"
 val APP_PREFERENCES_COUNTER = "counter"
 var counter = "standart"
 
-lateinit var pref: SharedPreferences ; //для работы с настройками
+lateinit var pref: SharedPreferences  //для работы с настройками
 
 class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -86,9 +86,9 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
                 }
             }
 
-        localDB.listPlacesByLike("%").forEach {
-            Log.d("COOL_DEBUG", "${it.title} - ${it.like}")
-        }
+//        localDB.listPlacesByLike("%").forEach {
+    //        Log.d("COOL_DEBUG", "${it.title} - ${it.like}")
+    //    }
 
 
         pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)       //cчитываем сохраненные данные
@@ -415,6 +415,7 @@ fun addPlace2(marker: MarkerEntity, local: DBHandler){
     values.put(DBHandler.placeLike, marker.like.toString())
     values.put(DBHandler.placeIconImageID, marker.iconimageId)
     values.put(DBHandler.placeImageID, marker.imageId)
+    values.put(DBHandler.placeGiper_text, marker.giper_text)
     local.addPlace(values)
 }
 

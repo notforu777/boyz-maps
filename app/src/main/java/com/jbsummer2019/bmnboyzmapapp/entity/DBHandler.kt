@@ -20,11 +20,12 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         val placeImageID = "ImageID"
         val placeIconImageID = "IconImageID"
         val placeLike = "Like_or_not"
+        val placeGiper_text="gipers"
     }
     var sqlObj: SQLiteDatabase = this.writableDatabase
 
     override fun onCreate(p0: SQLiteDatabase?) {
-        var sql1 = "CREATE TABLE IF NOT EXISTS $tableName ( $_id INTEGER PRIMARY KEY, $placePosition1 DOUBLE, $placePosition2 DOUBLE, $placeTitle TEXT, $placeText TEXT, $placeImageID INTEGER, $placeIconImageID INTEGER, $placeLike BOOL);"
+        var sql1 = "CREATE TABLE IF NOT EXISTS $tableName ( $_id INTEGER PRIMARY KEY, $placePosition1 DOUBLE, $placePosition2 DOUBLE, $placeTitle TEXT, $placeText TEXT, $placeImageID INTEGER, $placeIconImageID INTEGER, $placeLike BOOL, $placeGiper_text TEXT);"
         p0!!.execSQL(sql1)
     }
 
@@ -41,7 +42,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         var arraylist = ArrayList<MarkerEntity>()
         var sqlQB = SQLiteQueryBuilder()
         sqlQB.tables = tableName
-        var cols = arrayOf(_id, placePosition1, placePosition2, placeTitle, placeText, placeImageID, placeIconImageID, placeLike)
+        var cols = arrayOf(_id, placePosition1, placePosition2, placeTitle, placeText, placeImageID, placeIconImageID, placeLike, placeGiper_text)
         var selectArgs = arrayOf(key)
         var cursor = sqlQB.query(sqlObj, cols,"$placeLike like ?", selectArgs,null,null, placeTitle)
 
@@ -55,8 +56,9 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
                 val pI = cursor.getInt(cursor.getColumnIndex(placeImageID))
                 val pII = cursor.getInt(cursor.getColumnIndex(placeIconImageID))
                 val pL = cursor.getString(cursor.getColumnIndex(placeLike)).toBoolean()
+                val gT = cursor.getString(cursor.getColumnIndex(placeGiper_text))
 
-                arraylist.add(MarkerEntity(id, pp1, pp2,pT,pTe,pI,pII,pL))
+                arraylist.add(MarkerEntity(id, pp1, pp2,pT,pTe,pI,pII,pL,gT))
 
             } while (cursor.moveToNext())
         }
@@ -67,7 +69,7 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
         var arraylist = ArrayList<MarkerEntity>()
         var sqlQB = SQLiteQueryBuilder()
         sqlQB.tables = tableName
-        var cols = arrayOf(_id, placePosition1, placePosition2, placeTitle, placeText, placeImageID, placeIconImageID, placeLike)
+        var cols = arrayOf(_id, placePosition1, placePosition2, placeTitle, placeText, placeImageID, placeIconImageID, placeLike,placeGiper_text)
         var selectArgs = arrayOf(key)
         var cursor = sqlQB.query(sqlObj, cols,"$placeTitle like ?", selectArgs,null,null, placeTitle)
 
@@ -81,8 +83,9 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
                 val pI = cursor.getInt(cursor.getColumnIndex(placeImageID))
                 val pII = cursor.getInt(cursor.getColumnIndex(placeIconImageID))
                 val pL = cursor.getString(cursor.getColumnIndex(placeLike)).toBoolean()
+                val gT = cursor.getString(cursor.getColumnIndex(placeGiper_text))
 
-                arraylist.add(MarkerEntity(id, pp1, pp2,pT,pTe,pI,pII,pL))
+                arraylist.add(MarkerEntity(id, pp1, pp2,pT,pTe,pI,pII,pL,gT))
 
             } while (cursor.moveToNext())
         }

@@ -6,9 +6,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 
-        tools:context=".LikedActivity">
+        tools:context=".LikedActivity"
+        android:background="#E6E6FA">
 
-        android:background="#E6E6FA"
+
 
 
     <Button android:layout_width="wrap_content"
