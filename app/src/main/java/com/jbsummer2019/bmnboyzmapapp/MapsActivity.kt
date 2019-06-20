@@ -1,10 +1,8 @@
 package com.jbsummer2019.bmnboyzmapapp
 
 import android.content.ContentValues
-import android.content.Context
 import android.content.Intent
 import android.database.DatabaseUtils
-import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -21,7 +19,6 @@ import com.google.android.gms.maps.model.Marker
 import com.jbsummer2019.bmnboyzmapapp.entity.DBHandler
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.android.synthetic.main.activity_marker.*
 
 
 val repository = MarkerRepository()
@@ -65,19 +62,16 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
         var localDB = DBHandler(this)
 
         val rez = repository.getAll()
-
-
+        if (rez.size > DatabaseUtils.queryNumEntries(localDB.sqlObj, DBHandler.tableName)) {
             rez.forEach {
-                if (rez.size > DatabaseUtils.queryNumEntries(localDB.sqlObj, DBHandler.tableName)) {
-                    addPlace(it, localDB)
+                addPlace2(it, localDB)
                 }
-                if (it.like && !SelectedArr.contains(it.title)) {
-                    SelectedArr.add(it.title)
-                    Log.d("debug", "maps")
-                }
+            }
 
-
+        localDB.listPlacesByLike("%").forEach {
+            Log.d("COOL_DEBUG", "${it.title} - ${it.like}")
         }
+
         setContentView(R.layout.activity_maps)
         val mapFragment =  supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -86,7 +80,7 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
             startActivity(intent)
         }
         button_selected!!.setOnClickListener {
-            val intent =  Intent(this, selected::class.java)
+            val intent =  Intent(this, LikedActivity::class.java)
             startActivity(intent)
         }
 
@@ -129,14 +123,14 @@ fun GoogleMap.addAllMarkersEntites(list : ArrayList<MarkerEntity>) {
     }
 }
 
-fun addPlace(marker: MarkerEntity, local: DBHandler){
+fun addPlace2(marker: MarkerEntity, local: DBHandler){
     var values = ContentValues()
     values.put(DBHandler.placePosition1, marker.position1)
     values.put(DBHandler.placePosition2, marker.position2)
     values.put(DBHandler._id, marker.id)
     values.put(DBHandler.placeTitle, marker.title)
     values.put(DBHandler.placeText, marker.text)
-    values.put(DBHandler.placeLike, marker.like)
+    values.put(DBHandler.placeLike, marker.like.toString())
     values.put(DBHandler.placeIconImageID, marker.iconimageId)
     values.put(DBHandler.placeImageID, marker.imageId)
     local.addPlace(values)

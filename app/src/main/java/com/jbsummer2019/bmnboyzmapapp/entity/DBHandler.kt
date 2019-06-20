@@ -37,36 +37,55 @@ class DBHandler(context: Context) : SQLiteOpenHelper(context, DBName, null, DBVe
 
     fun updatePlace(values: ContentValues, id: Int) = sqlObj.update(tableName, values, "id = ?", arrayOf(id.toString()))
 
-//    fun listPlaces(key : String) : ArrayList<MarkerEntity> {
-//        var arraylist = ArrayList<MarkerEntity>()
-//        var sqlQB = SQLiteQueryBuilder()
-//        sqlQB.tables = tableName
-//        var cols = arrayOf(_id, placePosition1, placePosition2, placeTitle, placeText, placeImageID, placeIconImageID, placeLike)
-//        var selectArgs = arrayOf(key)
-//        var cursor = sqlQB.query(sqlObj, cols,"$placePosition1 like ?", selectArgs,null,null, placePosition1)
-//
-//        if (cursor.moveToFirst()) {
-//            do {
-//                val id = cursor.getInt(cursor.getColumnIndex(_id))
-//                val pp1 = cursor.getDouble(cursor.getColumnIndex(placePosition1))
-//                val pp2 = cursor.getDouble(cursor.getColumnIndex(placePosition2))
-//                val pT = cursor.getString(cursor.getColumnIndex(placeTitle))
-//                val pTe = cursor.getString(cursor.getColumnIndex(placeText))
-//                val pI = cursor.getInt(cursor.getColumnIndex(placeImageID))
-//                val pII = cursor.getInt(cursor.getColumnIndex(placeIconImageID))
-//                val pL = true
-//
-//                arraylist.add(MarkerEntity(id, pp1, pp2,pT,pTe,pI,pII,pL))
-//
-//            } while (cursor.moveToNext())
-//        }
-//        return arraylist
-//    }
-//
-//    fun getSize() : Int {
-//        sqlObj.execSQL("SELECT *")
-//        return 0
-//
-//    }
+    fun listPlacesByLike(key : String) : ArrayList<MarkerEntity> {
+        var arraylist = ArrayList<MarkerEntity>()
+        var sqlQB = SQLiteQueryBuilder()
+        sqlQB.tables = tableName
+        var cols = arrayOf(_id, placePosition1, placePosition2, placeTitle, placeText, placeImageID, placeIconImageID, placeLike)
+        var selectArgs = arrayOf(key)
+        var cursor = sqlQB.query(sqlObj, cols,"$placeLike like ?", selectArgs,null,null, placeTitle)
 
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndex(_id))
+                val pp1 = cursor.getDouble(cursor.getColumnIndex(placePosition1))
+                val pp2 = cursor.getDouble(cursor.getColumnIndex(placePosition2))
+                val pT = cursor.getString(cursor.getColumnIndex(placeTitle))
+                val pTe = cursor.getString(cursor.getColumnIndex(placeText))
+                val pI = cursor.getInt(cursor.getColumnIndex(placeImageID))
+                val pII = cursor.getInt(cursor.getColumnIndex(placeIconImageID))
+                val pL = cursor.getString(cursor.getColumnIndex(placeLike)).toBoolean()
+
+                arraylist.add(MarkerEntity(id, pp1, pp2,pT,pTe,pI,pII,pL))
+
+            } while (cursor.moveToNext())
+        }
+        return arraylist
+    }
+
+    fun listPlacesByTitle(key : String) : ArrayList<MarkerEntity> {
+        var arraylist = ArrayList<MarkerEntity>()
+        var sqlQB = SQLiteQueryBuilder()
+        sqlQB.tables = tableName
+        var cols = arrayOf(_id, placePosition1, placePosition2, placeTitle, placeText, placeImageID, placeIconImageID, placeLike)
+        var selectArgs = arrayOf(key)
+        var cursor = sqlQB.query(sqlObj, cols,"$placeTitle like ?", selectArgs,null,null, placeTitle)
+
+        if (cursor.moveToFirst()) {
+            do {
+                val id = cursor.getInt(cursor.getColumnIndex(_id))
+                val pp1 = cursor.getDouble(cursor.getColumnIndex(placePosition1))
+                val pp2 = cursor.getDouble(cursor.getColumnIndex(placePosition2))
+                val pT = cursor.getString(cursor.getColumnIndex(placeTitle))
+                val pTe = cursor.getString(cursor.getColumnIndex(placeText))
+                val pI = cursor.getInt(cursor.getColumnIndex(placeImageID))
+                val pII = cursor.getInt(cursor.getColumnIndex(placeIconImageID))
+                val pL = cursor.getString(cursor.getColumnIndex(placeLike)).toBoolean()
+
+                arraylist.add(MarkerEntity(id, pp1, pp2,pT,pTe,pI,pII,pL))
+
+            } while (cursor.moveToNext())
+        }
+        return arraylist
+    }
 }
