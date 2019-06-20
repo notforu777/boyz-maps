@@ -35,7 +35,15 @@ class MarkerActivity : AppCompatActivity() {
 
         name.text = intent.getStringExtra("title")
         text.text = intent.getStringExtra("text")
-
+        val currentMarkers = localDB.listPlacesByTitle(intent.getStringExtra("title"))
+        currentMarkers.forEach {
+            if (it.like){
+                button_like.text="Убрать из избранного"
+            }
+            else{
+                button_like.text="В избранное"
+            }
+        }
         web.setOnClickListener {
             val address = Uri.parse(intent.getStringExtra("giper_text"))
             val openLinkIntent = Intent(Intent.ACTION_VIEW, address)
@@ -77,6 +85,13 @@ class MarkerActivity : AppCompatActivity() {
                     values.put(DBHandler.placeGiper_text, it.giper_text)
 
                     localDB.updatePlace(values, it.id)
+
+                    if (!it.like){
+                        button_like.text="Убрать из избранного"
+                    }
+                    else{
+                        button_like.text="В избранное"
+                    }
 
                  //   localDB.listPlacesByLike("%").forEach {
                  //       Log.d("COOL_DEBUG", it.title + it.like.toString())
