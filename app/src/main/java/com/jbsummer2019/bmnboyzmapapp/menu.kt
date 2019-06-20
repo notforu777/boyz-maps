@@ -22,5 +22,10 @@ class menu : AppCompatActivity() {
             val intent = Intent(this,MapsActivity::class.java)
             startActivity(intent)
         }
+
+        button_style.setOnClickListener {
+            val intent = Intent(this,Style_map_activity::class.java)
+            startActivity(intent)
+        }
     }
 }

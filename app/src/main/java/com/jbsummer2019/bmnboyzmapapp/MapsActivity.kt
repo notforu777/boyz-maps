@@ -1,8 +1,6 @@
 package com.jbsummer2019.bmnboyzmapapp
 
-import android.content.Context
 import android.content.Intent
-import android.graphics.BitmapFactory
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 
@@ -17,9 +15,20 @@ import com.jbsummer2019.bmnboyzmapapp.entity.MarkerRepository
 import com.google.android.gms.maps.model.Marker
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
 import kotlinx.android.synthetic.main.activity_maps.*
-import kotlinx.android.synthetic.main.activity_marker.*
+import android.content.res.Resources.NotFoundException
+import android.util.Log
+import com.google.android.gms.maps.model.MapStyleOptions
+
+import android.content.SharedPreferences
+
+
 val repository = MarkerRepository()
 
+val APP_PREFERENCES = "mysettings"
+val APP_PREFERENCES_COUNTER = "counter"
+var counter = "standart"
+
+lateinit var pref: SharedPreferences ; //для работы с настройками
 
 class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
@@ -52,6 +61,9 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
 
     override fun onCreate(savedInstanceState:  Bundle?) {
         super.onCreate(savedInstanceState)
+        pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)       //cчитываем сохраненные данные
+
+        counter = pref.getString(APP_PREFERENCES_COUNTER, "standart");
         setContentView(R.layout.activity_maps)
         val mapFragment =  supportFragmentManager.findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
@@ -65,8 +77,264 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
         }
     }
 
+    override fun onPause() {
+        super.onPause()
+
+        // Запоминаем данные
+        val editor = pref.edit()
+        editor.putString(APP_PREFERENCES_COUNTER, counter)
+        editor.apply()
+    }
+
+    override fun onStop() {
+        super.onStop()
+
+        // Запоминаем данные
+        val editor = pref.edit()
+        editor.putString(APP_PREFERENCES_COUNTER, counter)
+        editor.apply()
+    }
+
     override fun onMapReady(googleMap:  GoogleMap) {
         mMap = googleMap
+        if(intent.getStringExtra("Style")!=null)
+        {
+            counter = intent.getStringExtra("Style")
+            if (intent.getStringExtra("Style")=="dark")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_dark
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+
+            if (intent.getStringExtra("Style")=="silver")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_silver
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+
+            if (intent.getStringExtra("Style")=="retro")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_retro
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+            if (intent.getStringExtra("Style")=="night")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_night
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+
+            if (intent.getStringExtra("Style")=="aubergine")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_aubergine
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+
+            if (intent.getStringExtra("Style")=="standart")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_standart
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+
+        }
+        else
+        {
+            if(counter == "dark")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_dark
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+            if(counter == "silver")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_silver
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+            if(counter == "retro")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_retro
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+
+            if(counter == "night")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_night
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+
+            if(counter == "aubergine")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_aubergine
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+
+            if(counter == "standart")
+            {
+                try {
+                    // Customise the styling of the base map using a JSON object defined
+                    // in a raw resource file.
+                    val success = googleMap.setMapStyle(
+                        MapStyleOptions.loadRawResourceStyle(
+                            this, R.raw.style_standart
+                        )
+                    )
+
+                    if (!success) {
+                        Log.e("Maps Activity", "Style parsing failed.")
+                    }
+                } catch (e: NotFoundException) {
+                    Log.e("Maps Activity", "Can't find style. Error: ", e)
+                }
+            }
+        }
+
+
+
+
+
+
+
         val piter = LatLng(59.941688, 30.338012)
 //        val a = mMap.addMarker(MarkerOptions().position(piter).title("Чижик-пыжик"))
         mMap.addAllMarkersEntites(repository.getAll())
@@ -91,6 +359,8 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
 
         return true
     }
+
+
 }
 
 fun GoogleMap.addAllMarkersEntites(list : ArrayList<MarkerEntity>){
