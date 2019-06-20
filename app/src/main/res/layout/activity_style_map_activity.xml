@@ -78,7 +78,7 @@
             android:layout_height="wrap_content"
             android:text="Стиль 6"
             android:id="@+id/button_style_6"
-            android:layout_below="@id/button_style_4"
+            android:layout_below="@id/button_style_5"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:background="#60D7A4"
