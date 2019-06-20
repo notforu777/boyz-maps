@@ -19,9 +19,8 @@
             android:id="@+id/button_menu"
             android:text="Меню"
             android:background="#5DCEC6"
-            android:layout_marginTop="10dp"
-            android:layout_marginRight="10dp"
-            android:padding="5dp"
+            android:layout_margin="10dp"
+            android:padding="6dp"
             android:elevation="6dp"
             android:textColor="#05021D"
     />
@@ -31,5 +30,10 @@
             android:layout_alignParentLeft="true"
             android:id="@+id/button_selected"
             android:text="Избранное"
+            android:background="#36D792"
+            android:layout_margin="10dp"
+            android:padding="6dp"
+            android:elevation="6dp"
+            android:textColor="#05021D"
     />
 </RelativeLayout>
