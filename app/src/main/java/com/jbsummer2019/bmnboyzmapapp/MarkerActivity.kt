@@ -1,12 +1,14 @@
 package com.jbsummer2019.bmnboyzmapapp
 
-import android.app.PictureInPictureParams
-import android.net.Uri
+import android.content.ContentValues
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ImageView
 import kotlinx.android.synthetic.main.activity_marker.*
 import android.content.Intent
+
+import android.util.Log
+import com.jbsummer2019.bmnboyzmapapp.entity.DBHandler
+
 import android.os.Environment
 import android.provider.MediaStore
 import android.os.Environment.getExternalStorageDirectory
@@ -15,6 +17,7 @@ import android.text.method.LinkMovementMethod
 import android.util.Log
 import kotlinx.android.synthetic.main.activity_marker.view.*
 import java.io.File
+
 
 
 
@@ -27,6 +30,7 @@ class MarkerActivity : AppCompatActivity() {
 
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_marker)
+        var localDB = DBHandler(this)
 
         name.text = intent.getStringExtra("title")
         text.text = intent.getStringExtra("text")
@@ -55,20 +59,29 @@ class MarkerActivity : AppCompatActivity() {
         }
 
         button_like.setOnClickListener {
-            if (intent.getBooleanExtra("like", false)) {
-                SelectedArr.remove(intent.getStringExtra("title"))
-                val currentMarkers = repository.searchByTitle(intent.getStringExtra("title"))
+            val currentMarkers = localDB.listPlacesByTitle(intent.getStringExtra("title"))
+            Log.d("debug", "${currentMarkers.size}")
                 currentMarkers.forEach {
-                    it.like=false
-                }
-                
-            }
-            else{
-                SelectedArr.add(intent.getStringExtra("title"))
-                val currentMarkers = repository.searchByTitle(intent.getStringExtra("title"))
-                currentMarkers.forEach {
-                    it.like=true
-                }
+                    Log.d("COOL_DEBUG", "${it.title} like clicked")
+
+                    var values = ContentValues()
+                    values.put(DBHandler.placePosition1, it.position1)
+                    values.put(DBHandler.placePosition2, it.position2)
+                    values.put(DBHandler._id, it.id)
+                    values.put(DBHandler.placeTitle, it.title)
+                    values.put(DBHandler.placeText, it.text)
+                    values.put(DBHandler.placeLike, (!it.like).toString())
+                    values.put(DBHandler.placeIconImageID, it.iconimageId)
+                    values.put(DBHandler.placeImageID, it.imageId)
+
+                    localDB.updatePlace(values, it.id)
+
+                    localDB.listPlacesByLike("%").forEach {
+                        Log.d("COOL_DEBUG", it.title + it.like.toString())
+                    }
+
+
+
             }
         }
     }
