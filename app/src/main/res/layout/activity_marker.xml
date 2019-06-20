@@ -78,7 +78,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:text="В избранное"
             android:id="@+id/button_like"
             android:background="#36D792"
             android:layout_margin="10dp"
