@@ -28,7 +28,8 @@
             android:layout_marginStart="10dp"
             android:textSize="17sp"
             android:layout_marginTop="3dp"
-            android:textColor="#1D766F"
+            android:textColor="#034569"
+            android:padding="6dp"
     />
 
    <Button android:layout_width="wrap_content"
@@ -36,9 +37,11 @@
            android:text="Читать подробнее"
            android:id="@+id/web"
            android:layout_below="@id/text"
-           android:padding="5dp"
+           android:layout_margin="10dp"
+           android:padding="6dp"
            android:elevation="2dp"
            android:textColor="#05021D"
+           android:background="#5DCEC6"
    />
 
 
@@ -48,9 +51,8 @@
             android:text="Назад"
             android:id="@+id/button_back"
             android:background="#66A3D2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:padding="5dp"
+            android:layout_margin="10dp"
+            android:padding="6dp"
             android:elevation="2dp"
             android:textColor="#05021D"
     />
@@ -67,10 +69,10 @@
             android:layout_alignParentRight="true"
             android:text="В избранное"
             android:id="@+id/button_like"
-            android:background="#66A3D2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:textColorHighlight="#3F92D2"
+            android:background="#36D792"
+            android:layout_margin="10dp"
+            android:padding="6dp"
+            android:elevation="2dp"
     />
 
 </RelativeLayout>
