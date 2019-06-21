@@ -34,15 +34,13 @@
     />
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:text="Назад"
             android:id="@+id/button_back_from_menu"
-            android:background="#66A3D2"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:padding="5dp"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="10dp"
             android:elevation="2dp"
             android:textColor="#05021D"
+            style="@style/MyStyle.ButtonMain"
     />
 
 </RelativeLayout>
