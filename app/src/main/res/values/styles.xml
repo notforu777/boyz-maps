@@ -29,4 +29,11 @@
     </style>
     <style name="MyStyle3">MyStyle3</style>
 
+    <style name="MyStyle4.ButtonMain">
+        ..
+        <item name="android:background">@drawable/button_main4</item>
+        ..
+    </style>
+    <style name="MyStyle4">MyStyle4</style>
+
 </resources>
