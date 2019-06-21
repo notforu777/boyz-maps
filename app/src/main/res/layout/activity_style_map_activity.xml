@@ -29,10 +29,10 @@
                 android:layout_height="wrap_content"
                 android:text="Дефолт"
                 android:id="@+id/button_style_1"
-                android:background="#33CEC3"
+                android:background="#fef7ef"
                 android:padding="5dp"
                 android:elevation="4dp"
-                android:textColor="#05021D"
+                android:textColor="#31919c"
                 android:layout_centerHorizontal="true"
         />
 
@@ -41,12 +41,12 @@
                 android:text="Закончился цветной картридж"
                 android:id="@+id/button_style_2"
                 android:layout_below="@id/button_style_1"
-                android:background="#009D91"
+                android:background="#f5f5f5"
                 android:layout_centerHorizontal="true"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:elevation="4dp"
-                android:textColor="#05021D"
+                android:textColor="#757575"
         />
 
         <Button android:layout_width="match_parent"
@@ -56,11 +56,11 @@
                 android:layout_below="@id/button_style_2"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:background="#5DCEC6"
+                android:background="#ebe3cd"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:elevation="4dp"
-                android:textColor="#05021D"
+                android:textColor="#93817c"
         />
 
         <Button android:layout_width="match_parent"
@@ -70,11 +70,11 @@
                 android:layout_below="@id/button_style_3"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:background="#00665E"
+                android:background="#212121"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:elevation="4dp"
-                android:textColor="#05021D"
+                android:textColor="#8a8a8a"
         />
 
         <Button android:layout_width="match_parent"
@@ -84,11 +84,11 @@
                 android:layout_below="@id/button_style_4"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:background="#33CEC3"
+                android:background="#242f3e"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:elevation="4dp"
-                android:textColor="#05021D"
+                android:textColor="#d59563"
         />
 
         <Button android:layout_width="match_parent"
@@ -98,11 +98,11 @@
                 android:layout_below="@id/button_style_5"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:background="#1D766F"
+                android:background="#1d2c4d"
                 android:layout_marginTop="10dp"
                 android:padding="5dp"
                 android:elevation="4dp"
-                android:textColor="#05021D"
+                android:textColor="#6f9ba5"
         />
 
     </RelativeLayout>
@@ -112,11 +112,10 @@
             android:text="Назад"
             android:id="@+id/button_back_from_styles_menu"
             android:layout_alignParentBottom="true"
-            android:background="#66A3D2"
             android:layout_margin="10dp"
-            android:padding="6dp"
             android:elevation="2dp"
             android:textColor="#05021D"
+            style="@style/MyStyle.ButtonMain"
     />
 
 </RelativeLayout>

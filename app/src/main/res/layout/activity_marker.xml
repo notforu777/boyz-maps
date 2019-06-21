@@ -64,14 +64,13 @@
 
     <Button android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
             android:text="Назад"
             android:id="@+id/button_back"
-            android:background="#66A3D2"
+            android:layout_alignParentBottom="true"
             android:layout_margin="10dp"
-            android:padding="6dp"
             android:elevation="2dp"
             android:textColor="#05021D"
+            style="@style/MyStyle.ButtonMain"
     />
 
     <Button android:layout_width="wrap_content"
@@ -79,11 +78,11 @@
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:id="@+id/button_like"
-            android:background="#36D792"
             android:layout_margin="10dp"
-            android:padding="6dp"
             android:elevation="2dp"
             android:textColor="#05021D"
+            style="@style/MyStyle2.ButtonMain"
+            android:text="Избранное"
     />
 
 </RelativeLayout>

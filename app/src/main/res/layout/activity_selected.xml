@@ -17,11 +17,10 @@
             android:text="Назад"
             android:id="@+id/button_back_from_favourites"
             android:layout_alignParentBottom="true"
-            android:background="#66A3D2"
             android:layout_margin="10dp"
-            android:padding="6dp"
             android:elevation="2dp"
             android:textColor="#05021D"
+            style="@style/MyStyle.ButtonMain"
     />
 
     <TextView android:layout_width="wrap_content"
