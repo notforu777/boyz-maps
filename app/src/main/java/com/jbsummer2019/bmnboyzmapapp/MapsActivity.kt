@@ -1,5 +1,6 @@
 package com.jbsummer2019.bmnboyzmapapp
 
+import android.Manifest
 import android.content.ContentValues
 import android.content.Intent
 import android.database.DatabaseUtils
@@ -21,23 +22,38 @@ import kotlinx.android.synthetic.main.activity_maps.*
 import android.content.res.Resources.NotFoundException
 import com.google.android.gms.maps.model.MapStyleOptions
 import android.content.SharedPreferences
+import android.content.pm.PackageManager
+import android.location.Location
+import android.location.LocationManager
+import android.support.v4.app.ActivityCompat
+import android.support.v4.content.ContextCompat
+import android.view.View
 
 val repository = MarkerRepository()
 
 val APP_PREFERENCES = "mysettings"
 val APP_PREFERENCES_COUNTER = "counter"
 var counter = "standart"
+val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION  = 1
+val MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1
+public var Latitude: Double = 0.toDouble()
+public var Longitude: Double = 0.toDouble()
+public lateinit var mMap:  GoogleMap
+
 
 lateinit var pref: SharedPreferences  //для работы с настройками
 
 class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
 
-    private lateinit var mMap:  GoogleMap
+
+
+    private lateinit var locationManager: LocationManager
+
 
     init {
         if (repository.getAll().size == 0)
         {
-          repository.add(MarkerEntity(1, 59.939191, 30.315777, "Александровская колонна", "Когда колонна была только-только установлена, жители остерегались ходить по площади, потому что думали, что колонна упадёт. Поэтому Монферран (чувак, который её придумал и спроектировал) каждый вечер выходил на площадь погулять со своей собачкой.", R.drawable.colonna, R.drawable.icon_colonna,false,"https://ru.wikipedia.org/wiki/Александровская_колонна"))
+            repository.add(MarkerEntity(1, 59.939191, 30.315777, "Александровская колонна", "Когда колонна была только-только установлена, жители остерегались ходить по площади, потому что думали, что колонна упадёт. Поэтому Монферран (чувак, который её придумал и спроектировал) каждый вечер выходил на площадь погулять со своей собачкой.", R.drawable.colonna, R.drawable.icon_colonna,false,"https://ru.wikipedia.org/wiki/Александровская_колонна"))
             repository.add(MarkerEntity(2, 59.933270, 30.343388, "Аничков мост", "Нет, он назван не в честь Анечки.", R.drawable.anichkov, R.drawable.icon_anichkov,false,"https://ru.wikipedia.org/wiki/Аничков_мост"))
             repository.add(MarkerEntity(3, 59.932219, 30.324958, "Грифоны", "На реставрации в 99 случаях из 100, так что если тебе удалось их встретить, ты просто лакер.", R.drawable.grifons,R.drawable.icon_grifons,false,"https://ru.wikipedia.org/wiki/Банковский_мост"))
             repository.add(MarkerEntity(4, 59.927701, 30.310945, "Дом Раскольникова", "Да, считается, что жил он, по замыслу автора, именно здесь.", R.drawable.rascolnik, R.drawable.icon_rascolnik,false,"https://ru.wikipedia.org/wiki/Дом_Раскольникова"))
@@ -58,6 +74,9 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
         }
     }
 
+    private val LOCATION_PERMS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+    private val LOCATION_REQUEST = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
+
     override fun onCreate(savedInstanceState:  Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -67,8 +86,8 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
         if (rez.size > DatabaseUtils.queryNumEntries(localDB.sqlObj, DBHandler.tableName)) {
             rez.forEach {
                 addPlace2(it, localDB)
-                }
             }
+        }
 
         pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)       //cчитываем сохраненные данные
 
@@ -85,6 +104,12 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
             val intent =  Intent(this, LikedActivity::class.java)
             startActivity(intent)
         }
+
+//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
+//            != PackageManager.PERMISSION_GRANTED) {
+//            mMap.isMyLocationEnabled  = true
+//        }
+        locationManager =  getSystemService(LOCATION_SERVICE) as LocationManager
 
     }
 
@@ -108,6 +133,23 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
 
     override fun onMapReady(googleMap:  GoogleMap) {
         mMap = googleMap
+        if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED &&
+            ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
+            PackageManager.PERMISSION_GRANTED) {
+            mMap.isMyLocationEnabled = true
+            mMap.uiSettings.isMyLocationButtonEnabled = true
+            val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
+
+           mMap.addMarker( MarkerOptions().position(LatLng(location.latitude,location.longitude)).title("ты").icon(
+                BitmapDescriptorFactory.fromResource(R.drawable.icon_user)))
+
+        } else {
+
+         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION)
+        }
+
         if(intent.getStringExtra("Style")!=null)
         {
             counter = intent.getStringExtra("Style")
@@ -194,8 +236,7 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
                     val success = googleMap.setMapStyle(
                         MapStyleOptions.loadRawResourceStyle(
                             this, R.raw.style_aubergine
-                        )
-                    )
+                        ))
 
                     if (!success) {
                         Log.e("Maps Activity", "Style parsing failed.")
@@ -349,15 +390,21 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
 
     override fun onMarkerClick(currentMarker: Marker?): Boolean {
         val results = repository.searchByTitle(currentMarker!!.title)
-        results.forEach {
-            val intent = Intent(this, MarkerActivity::class.java)
-            intent.putExtra("position", (LatLng(it.position1, it.position2)).toString())
-            intent.putExtra("title", it.title)
-            intent.putExtra("text", it.text)
-            intent.putExtra("like", it.like)
-            intent.putExtra("giper_text",it.giper_text)
-            intent.putExtra(MarkerActivity.IMAGE_KEY, it.imageId)
-            startActivity(intent)
+        if (currentMarker.title =="ты"){
+            Log.d("Debug","hyu")
+            currentMarker.showInfoWindow()
+        }
+        else {
+            results.forEach {
+                val intent = Intent(this, MarkerActivity::class.java)
+                intent.putExtra("position", (LatLng(it.position1, it.position2)).toString())
+                intent.putExtra("title", it.title)
+                intent.putExtra("text", it.text)
+                intent.putExtra("like", it.like)
+                intent.putExtra("giper_text", it.giper_text)
+                intent.putExtra(MarkerActivity.IMAGE_KEY, it.imageId)
+                startActivity(intent)
+            }
         }
 
         return true
