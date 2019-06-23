@@ -1,6 +1,7 @@
 package com.jbsummer2019.bmnboyzmapapp
 
 import android.Manifest
+import android.app.DownloadManager
 import android.content.ContentValues
 import android.content.Intent
 import android.database.DatabaseUtils
@@ -11,23 +12,26 @@ import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
-import com.google.android.gms.maps.model.BitmapDescriptorFactory
-import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MarkerOptions
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerRepository
-import com.google.android.gms.maps.model.Marker
 import com.jbsummer2019.bmnboyzmapapp.entity.DBHandler
 import com.jbsummer2019.bmnboyzmapapp.entity.MarkerEntity
 import kotlinx.android.synthetic.main.activity_maps.*
 import android.content.res.Resources.NotFoundException
-import com.google.android.gms.maps.model.MapStyleOptions
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
+import android.graphics.Color
 import android.location.Location
 import android.location.LocationManager
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.view.View
+import com.android.volley.Request
+import com.android.volley.Response
+import com.android.volley.toolbox.StringRequest
+import com.android.volley.toolbox.Volley
+import com.google.android.gms.maps.model.*
+import com.google.maps.android.PolyUtil
+import org.json.JSONObject
 
 val repository = MarkerRepository()
 
@@ -36,9 +40,9 @@ val APP_PREFERENCES_COUNTER = "counter"
 var counter = "standart"
 val MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION  = 1
 val MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION = 1
-public var Latitude: Double = 0.toDouble()
-public var Longitude: Double = 0.toDouble()
-public lateinit var mMap:  GoogleMap
+//var Latitude: Double = 0.toDouble()
+//var Longitude: Double = 0.toDouble()
+lateinit var mMap:  GoogleMap
 
 
 lateinit var pref: SharedPreferences  //для работы с настройками
@@ -74,8 +78,8 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
         }
     }
 
-    private val LOCATION_PERMS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
-    private val LOCATION_REQUEST = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
+   // private val LOCATION_PERMS = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
+   // private val LOCATION_REQUEST = arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION)
 
     override fun onCreate(savedInstanceState:  Bundle?) {
         super.onCreate(savedInstanceState)
@@ -105,10 +109,7 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
             startActivity(intent)
         }
 
-//        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_CALENDAR)
-//            != PackageManager.PERMISSION_GRANTED) {
-//            mMap.isMyLocationEnabled  = true
-//        }
+
         locationManager =  getSystemService(LOCATION_SERVICE) as LocationManager
 
     }
@@ -133,6 +134,8 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
 
     override fun onMapReady(googleMap:  GoogleMap) {
         mMap = googleMap
+
+
         if (ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) ==
             PackageManager.PERMISSION_GRANTED &&
             ContextCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) ==
@@ -140,15 +143,15 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
             mMap.isMyLocationEnabled = true
             mMap.uiSettings.isMyLocationButtonEnabled = true
             val location = locationManager.getLastKnownLocation(LocationManager.GPS_PROVIDER)
-
-           mMap.addMarker( MarkerOptions().position(LatLng(location.latitude,location.longitude)).title("ты").icon(
+            mMap.addMarker( MarkerOptions().position(LatLng(location.latitude,location.longitude)).title("ты").icon(
                 BitmapDescriptorFactory.fromResource(R.drawable.icon_user)))
 
         } else {
-
-         ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_FINE_LOCATION), MY_PERMISSIONS_REQUEST_ACCESS_FINE_LOCATION)
             ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.ACCESS_COARSE_LOCATION), MY_PERMISSIONS_REQUEST_ACCESS_COARSE_LOCATION)
         }
+
+
 
         if(intent.getStringExtra("Style")!=null)
         {
@@ -381,17 +384,44 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
             }
         }
 
+
+
+        val path: MutableList<List<LatLng>> = ArrayList()
+        val urlDirections = "https://maps.googleapis.com/maps/api/directions/json?origin=10.3181466,123.9029382&destination=10.311795,123.915864&key=<AIzaSyCMTS15vPj3VGzmhk3Hwm2MOsuGWZB5RVw>"
+        val directionsRequest = object : StringRequest(Request.Method.GET, urlDirections, Response.Listener<String> {
+                response ->
+            val jsonResponse = JSONObject(response)
+            // Get routes
+            val routes = jsonResponse.getJSONArray("routes")
+            val legs = routes.getJSONObject(0).getJSONArray("legs")
+            val steps = legs.getJSONObject(0).getJSONArray("steps")
+            for (i in 0 until steps.length()) {
+                val points = steps.getJSONObject(i).getJSONObject("polyline").getString("points")
+                path.add(PolyUtil.decode(points))
+            }
+            for (i in 0 until path.size) {
+               mMap!!.addPolyline(PolylineOptions().addAll(path[i]).color(Color.RED))
+            }
+        }, Response.ErrorListener {
+                _ ->
+        }){}
+        val requestQueue = Volley.newRequestQueue(this)
+        requestQueue.add(directionsRequest)
+
+
+
+
+
         val piter = LatLng(59.941688, 30.338012)
         mMap.addAllMarkersEntites(repository.getAll())
         mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(piter, 13.0f))
         mMap.setOnMarkerClickListener(this)
-
     }
 
     override fun onMarkerClick(currentMarker: Marker?): Boolean {
         val results = repository.searchByTitle(currentMarker!!.title)
         if (currentMarker.title =="ты"){
-            Log.d("Debug","hyu")
+            Log.d("Debug","nepravda")
             currentMarker.showInfoWindow()
         }
         else {
@@ -406,7 +436,6 @@ class MapsActivity :  AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarke
                 startActivity(intent)
             }
         }
-
         return true
     }
 
@@ -419,7 +448,6 @@ fun GoogleMap.addAllMarkersEntites(list : ArrayList<MarkerEntity>) {
                 BitmapDescriptorFactory.fromResource(it.iconimageId)
             )
         )
-
     }
 }
 
