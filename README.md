@@ -1,3 +1,3 @@
-# BMN-Repository
+# Google maps extension to watch spb sights
 
-BoyzMapps Android App
+
